@@ -2,7 +2,7 @@
 typedef int ElementType;
 
 /* buketsort */
-void bucketsort(int *unsorted, int N, int maxNumber)
+void Bucketsort(int *unsorted, int N, int maxNumber)
 {
     int i, j;
     int *bucket = malloc(sizeof(int) * (maxNumber + 1));
@@ -30,6 +30,88 @@ void bucketsort(int *unsorted, int N, int maxNumber)
 
         free(bucket);
     }
+}
+
+/* radixsort */
+//
+//辅助函数，求数据的最大位数
+int maxbit(int data[], int n)
+{
+    /* 先求出最大数 */
+    int maxData = data[0];
+    for (int i = 1; i < n; ++i)
+    {
+        if (maxData < data[i])
+        {
+            maxData = data[i];
+        }
+    }
+
+    /* 再求位数 */
+    int count = 1;
+    while (1)
+    {
+        if ((maxData = maxData / 10) == 0)
+        {
+            break;
+        }
+        count++;
+    }
+    return count;
+}
+
+void Radixsort(int data[], int n)
+{
+    int i, j, k;
+    int d = maxbit(data, n);
+
+    int *tmpdata = malloc(sizeof(int) * n);
+    int *bucket = malloc(sizeof(int) * 10); //计数器
+
+    /* 进行 d 次排序 */
+    int radix = 1;
+    for (i = 1; i <= d; i++)
+    {
+        /* 每次分配前清空计数器 */
+        for (j = 0; j < 10; j++)
+        {
+            bucket[j] = 0;
+        }
+
+        /* 统计每个桶中的记录数 */
+        for (j = 0; j < n; j++)
+        {
+            /* k 为 radix 位上的数 */
+            k = (data[j] / radix) % 10;
+            bucket[k]++;
+        }
+
+        /* 记录位置 , 为下个循环的分配做铺垫 */
+        for (j = 1; j < 10; j++)
+        {
+            bucket[j] = bucket[j - 1] + bucket[j];
+        }
+
+        /* 将所有桶中记录依次收集到 tmpdata 中 */
+        for (j = n - 1; j >= 0; j--)
+        {
+            /* k 为 radix 位上的数 */
+            k = (data[j] / radix) % 10;
+            tmpdata[bucket[k] - 1] = data[j];
+            bucket[k]--;
+        }
+
+        /* 将临时数组的内容复制到 data 中 */
+        for (j = 0; j < n; j++)
+        {
+            data[j] = tmpdata[j];
+        }
+
+        radix = radix * 10;
+    }
+
+    free(tmpdata);
+    free(bucket);
 }
 
 /* heapsort */
@@ -85,7 +167,7 @@ void Heapsort(ElementType A[], int N)
         Swap(&A[0], &A[i]); /* DeleteMax */
         PercDown(A, 0, i);
     }
-} 
+}
 
 /* mergesort */
 //
