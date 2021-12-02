@@ -17,9 +17,11 @@ SearchTree MakeEmpty(SearchTree T)
         MakeEmpty(T->Right);
         free(T);
     }
+
     return NULL;
 }
 
+/* 返回 X 所在位置；或 NULL 当 X 不在树上时 */
 Position Find(ElementType X, SearchTree T)
 {
     if (T == NULL)
@@ -37,13 +39,15 @@ Position Find(ElementType X, SearchTree T)
     }
     else
     {
+        /* 即 X == T->Element */
         return T;
     }
 }
 
-//递归找 Min
+/* 递归找 Min */
 Position FindMin(SearchTree T)
 {
+    /* 有一个树是否为空的判断总是好的 */
     if (T == NULL)
     {
         return NULL;
@@ -58,11 +62,12 @@ Position FindMin(SearchTree T)
     }
 }
 
-//非递归找 Max
+/* 非递归找 Max */
 Position FindMax(SearchTree T)
 {
     if (T != NULL)
     {
+        /* 循环结束后 T->right == NULL */
         while (T->Right != NULL)
         {
             T = T->Right;
@@ -72,9 +77,11 @@ Position FindMax(SearchTree T)
     return T;
 }
 
-//递归插入
-//返回参数 T
-//只有在 T = NULL 执行时
+/* 递归插入 */
+/* 因为我没有创建初始化函数 */
+/* 所以这个函数一定程度上还有类似初始化的作用 */
+/* 以及正常插入时，返回值将用于存储之前信息 */
+/* 所以为了这个特性，返回值时必须的 */
 SearchTree Insert(ElementType X, SearchTree T)
 {
     if (T == NULL)
@@ -104,6 +111,7 @@ SearchTree Insert(ElementType X, SearchTree T)
     return T; /* Do not forget this line!! */
 }
 
+/* 具体的算法原理这里不做讲解 */
 SearchTree Delete(ElementType X, SearchTree T)
 {
     Position TmpCell;
@@ -130,7 +138,7 @@ SearchTree Delete(ElementType X, SearchTree T)
     else /* One or zero children */
     {
         TmpCell = T;
-        if (T->Left == NULL) /* Also handles 0 children */
+        if (T->Left == NULL)
         {
             T = T->Right;
         }
@@ -146,5 +154,11 @@ SearchTree Delete(ElementType X, SearchTree T)
 
 ElementType Retrieve(Position P)
 {
-    return P->Element;
+    if (P != NULL)
+    {
+        return P->Element;
+    }
+
+    /* 用个 -1 表 P 无效 */
+    return -1;
 }

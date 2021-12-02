@@ -1,13 +1,13 @@
-//数组实现队列
-//
+/* 数组实现队列 */
+
 typedef int ElementType;
 
 #ifndef _Queue_h
 #define _Queue_h
 //
-//一个队列
-//尾进首出
-//Rear=Front-1为空
+
+/* 尾进首出 */
+/* Rear = Front-1 为空 */
 struct QueueRecord;
 typedef struct QueueRecord *Queue;
 
@@ -22,5 +22,6 @@ void Enqueue(ElementType X, Queue Q);
 void Dequeue(Queue Q);
 ElementType Front(Queue Q);
 ElementType FrontAndDequeue(Queue Q);
+
 //
 #endif

@@ -215,6 +215,7 @@ AvlTree Insert(ElementType X, AvlTree T)
 AvlTree Delete(ElementType X, AvlTree T)
 {
     printf("Sorry; Delete is unimplemented; %d remains\n", X);
+    
     return T;
 }
 

@@ -1,10 +1,11 @@
-//数组实现栈
-//
+/* 数组实现栈 */
+
 typedef int ElementType;
 
 #ifndef _Stack_h
 #define _Stack_h
 //
+
 struct StackRecord;
 typedef struct StackRecord *Stack;
 
@@ -21,5 +22,6 @@ ElementType Top(Stack S);
 void Pop(Stack S);
 //返回弹出的元素
 ElementType TopAndPop(Stack S);
+
 //
 #endif

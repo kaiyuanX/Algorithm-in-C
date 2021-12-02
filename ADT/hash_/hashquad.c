@@ -4,6 +4,8 @@
 
 #define MinTableSize (10)
 
+/* 枚举定义一个位置的状态 */
+/* 因为我们采用懒惰删除，所以这点很重要 */
 enum KindOfEntry
 {
     // 0 1 2
@@ -87,6 +89,7 @@ Position Find(ElementType Key, HashTable H)
     CollisionNum = 0;
     CurrentPos = Hash(Key, H->TableSize);
 
+    /* 循环结束，找到则 CurrentPos 为 Key 的位置；或没找到 CurrentPos 为 Key 应该插入的位置*/
     while (H->TheCells[CurrentPos].Info != Empty &&
            H->TheCells[CurrentPos].Element != Key)
     {
@@ -100,6 +103,7 @@ Position Find(ElementType Key, HashTable H)
     return CurrentPos;
 }
 
+/* 若表中没有 Key 才插入，有则什么都不做 */
 void Insert(ElementType Key, HashTable H)
 {
     Position Pos;
@@ -113,6 +117,7 @@ void Insert(ElementType Key, HashTable H)
     }
 }
 
+/* 大小为原来的 2 倍 */
 HashTable Rehash(HashTable H)
 {
     int i, OldSize;
@@ -133,7 +138,7 @@ HashTable Rehash(HashTable H)
         }
     }
 
-    //未释放 oldH ?
+    /* OldH 我继续在用，所以不释放它 */
     free(OldCells);
 
     return H;

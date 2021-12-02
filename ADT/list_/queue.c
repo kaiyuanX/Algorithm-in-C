@@ -38,6 +38,7 @@ Queue CreateQueue(int MaxElements)
     {
         printf("Out of space!!!");
     }
+
     Q->Capacity = MaxElements;
     MakeEmpty(Q);
 
@@ -60,8 +61,9 @@ void DisposeQueue(Queue Q)
     }
 }
 
-//Value自增
-//如果当前为Capacity-1，则返回 0
+/* Value自增 */
+/* 如果当前为 Capacity-1 返回 0 */
+/* 相当于 (++Value) % Capacity */
 static int Succ(int Value, Queue Q)
 {
     if (++Value == Q->Capacity)
@@ -125,5 +127,6 @@ ElementType FrontAndDequeue(Queue Q)
         X = Q->Array[Q->Front];
         Q->Front = Succ(Q->Front, Q);
     }
+    
     return X;
 }

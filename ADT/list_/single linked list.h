@@ -1,4 +1,5 @@
-//务必有个头节点 list
+/* 务必有个头节点 list */
+
 //定义链表中一个节点的区域
 struct SingleLinkedList
 {

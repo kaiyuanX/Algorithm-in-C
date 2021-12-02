@@ -68,9 +68,10 @@ HashTable InitializeTable(int TableSize)
     }
 
     /* Allocate list headers */
+    /* 高能预警，这个鬼地方需要你有一定的理解指针能力 */
     for (i = 0; i < H->TableSize; i++)
     {
-        //选 -> 再 []
+        /* H->TheLists[i] 等价 (H->TheLists)[i] */
         H->TheLists[i] = malloc(sizeof(struct ListNode));
         if (H->TheLists[i] == NULL)
         {
@@ -92,21 +93,23 @@ Position Find(ElementType Key, HashTable H)
 
     L = H->TheLists[Hash(Key, H->TableSize)];
     P = L->Next;
-    while (P != NULL && P->Element != Key)
+    /* 循环结束时 , P 指向 Key 的位置 ; 或 P == NULL 即没找到 */
+    while (P != NULL && P->Element != Key)/* Probably need strcmp!! */
     {
-        /* Probably need strcmp!! */
         P = P->Next;
     }
     return P;
 }
 
+/* Key 不存在表中时才插入 */
+/* 若 Key 在表中，什么都不做 */
 void Insert(ElementType Key, HashTable H)
 {
     Position Pos, NewCell;
     List L;
 
     Pos = Find(Key, H);
-    if (Pos == NULL) /* Key is not found */
+    if (Pos == NULL) /* Key 不在表中 */
     {
         NewCell = malloc(sizeof(struct ListNode));
         if (NewCell == NULL)
@@ -115,6 +118,7 @@ void Insert(ElementType Key, HashTable H)
         }
         else
         {
+            /* 头插法插入，方便简洁 */
             L = H->TheLists[Hash(Key, H->TableSize)];
             NewCell->Next = L->Next;
             NewCell->Element = Key; /* Probably need strcpy! */
@@ -123,15 +127,18 @@ void Insert(ElementType Key, HashTable H)
     }
 }
 
+/* 返回 P 位置上的 关键字 , P 是链表节点的指针 */
 ElementType Retrieve(Position P)
 {
     return P->Element;
 }
 
+/* 相当于释放了 Tablesize 个单链表 + 一个 TheLists + 一个 H */
 void DestroyTable(HashTable H)
 {
     int i;
 
+    /* 从表头开始从前到后释放链表 */
     for (i = 0; i < H->TableSize; i++)
     {
         Position P = H->TheLists[i];
