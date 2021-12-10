@@ -4,12 +4,14 @@
 #include <stdio.h>
 
 #define FastAlg
+
+/* NumSets 应该是在你创建这个不相交集之前就应该确定的一个量 */
 #define NumSets 128
 
 /* disjset.h */
 #ifndef _DisjSet_H
 
-typedef int DisjSet[NumSets + 1]; //DisjSet s;   ==>   int s[NumSets + 1];
+typedef int DisjSet[NumSets + 1]; // DisjSet s;   <==>   int s[NumSets + 1];
 typedef int SetType;
 typedef int ElementType;
 
@@ -30,6 +32,8 @@ void Initialize(DisjSet S)
     }
 }
 
+/* ifdef 后面是没经过改善的实现 */
+/* else 后面的是改修后的实现 */
 #ifdef SlowAlg
 
 /* Assume Root1 and Root2 are roots */
@@ -53,7 +57,7 @@ SetType Find(ElementType X, DisjSet S)
 
 /* 路径压缩与按高度求并不完全兼容导致 */
 
-/* 按秩求并 */
+/* 按秩 (高度) 求并 */
 /* 根元素的负值表该树的高 */
 void SetUnion(DisjSet S, SetType Root1, SetType Root2)
 {
@@ -85,7 +89,6 @@ SetType Find(ElementType X, DisjSet S)
 }
 
 #endif
-/* END */
 
 int main()
 {

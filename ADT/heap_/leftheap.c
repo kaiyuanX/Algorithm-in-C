@@ -10,13 +10,15 @@ struct TreeNode
     int Npl;
 };
 
+/* 直接得到 NULL */
 PriorityQueue Initialize(void)
 {
     //
     return NULL;
 }
 
-//merge
+/* begin */
+/* merge */
 //
 void SwapChildren(PriorityQueue H)
 {
@@ -27,11 +29,13 @@ void SwapChildren(PriorityQueue H)
     H->Right = Tmp;
 }
 
-// H1->Element < H2->Element
+/* 核心 */
+/* 这里的参数 H1->Element < H2->Element */
 static PriorityQueue Merge1(PriorityQueue H1, PriorityQueue H2)
 {
     if (H1->Left == NULL) /* Single node */
     {
+        /* 这中情况连 Npl 都不用更新 */
         H1->Left = H2; /* H1->Right is already NULL, H1->Npl is already 0 */
     }
     else
@@ -46,11 +50,10 @@ static PriorityQueue Merge1(PriorityQueue H1, PriorityQueue H2)
         H1->Npl = H1->Right->Npl + 1;
     }
 
-    //即函数 Merge 的 return
     return H1;
 }
 
-//返回合并后的根位置
+/* 总例程 */
 PriorityQueue Merge(PriorityQueue H1, PriorityQueue H2)
 {
     if (H1 == NULL)
@@ -59,13 +62,16 @@ PriorityQueue Merge(PriorityQueue H1, PriorityQueue H2)
     if (H2 == NULL)
         return H1;
 
+    /* 合并具有大根值的堆与具有小根值的堆的右子堆 */
     if (H1->Element < H2->Element)
         return Merge1(H1, H2);
     else
         return Merge1(H2, H1);
 }
-//end
+//
+/* end */
 
+/* 一个节点与一个堆的合并 */
 PriorityQueue Insert1(ElementType X, PriorityQueue H)
 {
     PriorityQueue SingleNode;
@@ -82,12 +88,11 @@ PriorityQueue Insert1(ElementType X, PriorityQueue H)
         SingleNode->Left = SingleNode->Right = NULL;
         H = Merge(SingleNode, H);
     }
+
     return H;
 }
 
-/* DeleteMin1 returns the new tree; */
-/* To get the minimum, use FindMin */
-/* This is for convenience */
+/* 删掉根，合并左右子堆 */
 PriorityQueue DeleteMin1(PriorityQueue H)
 {
     PriorityQueue LeftHeap, RightHeap;

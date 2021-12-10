@@ -1,4 +1,6 @@
 /* AVL */
+/* Insert 之外的函数实现与 binary search tree 一样 */
+/* 单旋转双旋转的函数没写在头文件，请前往 AVL tree.c查看 */
 
 typedef int ElementType;
 

@@ -71,7 +71,7 @@ Position FindMax(AvlTree T)
     return T;
 }
 
-//返回 p 的高度
+/* 返回 p 的高度 */
 static int Height(Position P)
 {
     if (P == NULL)
@@ -84,7 +84,7 @@ static int Height(Position P)
     }
 }
 
-//返回较大的数
+/* 返回较大的数 */
 static int Max(int Lhs, int Rhs)
 {
     return Lhs > Rhs ? Lhs : Rhs;
@@ -93,7 +93,7 @@ static int Max(int Lhs, int Rhs)
 /* This function can be called only if K2 has a left child */
 /* Perform a rotate between a node (K2) and its left child */
 /* Update heights, then return new root */
-//传入地址k2 , 单旋转后返回地址k1
+/* 传入地址 k2 , 单旋转后返回地址 k1 */
 static Position SingleRotateWithLeft(Position K2)
 {
     Position K1;
@@ -102,8 +102,8 @@ static Position SingleRotateWithLeft(Position K2)
     K2->Left = K1->Right;
     K1->Right = K2;
 
-    K2->Height = Max(Height(K2->Left), Height(K2->Right)) + 1; //此时k2的高度为 Y,Z  中的最大 +1
-    K1->Height = Max(Height(K1->Left), K2->Height) + 1;        //此时k1的高度为 X,k2 中的最大 +1
+    K2->Height = Max(Height(K2->Left), Height(K2->Right)) + 1; //此时 k2 的高度为 Y,Z 中的最大 +1
+    K1->Height = Max(Height(K1->Left), K2->Height) + 1;        //此时 k1 的高度为 X,k2 中的最大 +1
 
     return K1; /* New root */
 }
@@ -111,7 +111,6 @@ static Position SingleRotateWithLeft(Position K2)
 /* This function can be called only if K1 has a right child */
 /* Perform a rotate between a node (K1) and its right child */
 /* Update heights, then return new root */
-//传入地址k1 , 单旋转后返回地址k2
 static Position SingleRotateWithRight(Position K1)
 {
     Position K2;
@@ -130,14 +129,16 @@ static Position SingleRotateWithRight(Position K1)
 /* and K3's left child has a right child */
 /* Do the left-right double rotation */
 /* Update heights, then return new root */
-//输入地址k3 , 两次单旋转后返回地址k2
+/* 输入地址 k3 , 两次单旋转后返回地址 k2 */
 static Position DoubleRotateWithLeft(Position K3)
 {
     /* Rotate between K1 and K2 */
-    //k3->Left = k2
+    /* 以 k1 为根节点，右单旋一次 */
+    /* 赋值后 k3->Left = k2 */
     K3->Left = SingleRotateWithRight(K3->Left);
 
     /* Rotate between K3 and K2 */
+    /* 以 k3 为单节点，左单旋一次 */
     return SingleRotateWithLeft(K3);
 }
 
@@ -162,30 +163,33 @@ AvlTree Insert(ElementType X, AvlTree T)
         T = malloc(sizeof(struct AvlNode));
         if (T == NULL)
         {
-            ;
+            printf("Out of space!!!");
         }
         else
         {
             T->Element = X;
-            T->Height = 0;
             T->Left = T->Right = NULL;
+            T->Height = 0;
         }
     }
     else if (X < T->Element)
     {
         T->Left = Insert(X, T->Left);
-        // X 插在 T 的左边
-        //多于 binary search tree 的部分
+
+        /* 多于 binary search tree 的部分 */
+        /*  X 插在 T 的左边 , 且出现不平衡 */
         if (Height(T->Left) - Height(T->Right) == 2)
         {
             if (X < T->Left->Element)
             {
-                // X 又在 T->Left 的左边
-                //从而构成 left-left
+                /* X 又在 T->Left 的左边 */
+                /* 从而构成 left-left */
                 T = SingleRotateWithLeft(T);
             }
             else
             {
+                /* X 又在 T->Left 的右边 */
+                /* 从而构成 left-right */
                 T = DoubleRotateWithLeft(T);
             }
         }
@@ -207,6 +211,7 @@ AvlTree Insert(ElementType X, AvlTree T)
         }
     }
 
+    /* Height() 返回地址节点所在的高度，为 NULL 返回 -1 */
     T->Height = Max(Height(T->Left), Height(T->Right)) + 1;
 
     return T;
@@ -215,11 +220,17 @@ AvlTree Insert(ElementType X, AvlTree T)
 AvlTree Delete(ElementType X, AvlTree T)
 {
     printf("Sorry; Delete is unimplemented; %d remains\n", X);
-    
+
     return T;
 }
 
 ElementType Retrieve(Position P)
 {
-    return P->Element;
+    if (P != NULL)
+    {
+        return P->Element;
+    }
+
+    /* 用个 -1 表 P 无效 */
+    return -1;
 }
