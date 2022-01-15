@@ -1,13 +1,19 @@
 # Algorithm-in-C
-### description
-learning notes  
+### Description
+common application like `queue` `hash` or `quicksort` for C.
 
-### content  
-* file **[ADT](ADT)** : data structures
-* file **[applications_adt](applications_adt)** : applications about ADT
-* file **[classic-algorithm](classic-algorithm)** : common algorithms
+### Content  
+* file **[ADT](ADT)** : Abstract Data Type.
+* file **[applications_adt](applications_adt)** : some examples about ADT applications.
+* file **[classic-algorithm](classic-algorithm)** : common algorithms.
 
-### reference
+and so on...
+
+(too lazy to make table of contents)
+
+### Reference
 * [Data Structures and Algorithm Analysis in C:Second Edition](https://book.douban.com/subject/1139426/)
+
+by the way,most code of this repository from this book.
 
 *( in pure C )*

@@ -10,6 +10,7 @@
 #ifndef _KMP_H
 #define _KMP_H
 
+// 在 txt 里面找 pat
 // Prints occurrences of txt[] in pat[]
 void KMPSearch(char *pat, char *txt);
 
