@@ -7,6 +7,9 @@
 /* IsPrime: Test if N >= 3 is prime using one value of A */
 /* Repeat this procedure as many times as needed for desired error rate */
 
+/* 用之前建议使用一下 srand() */
+/* 为降低失败率，建议多次调用 IsPrime() */
+
 #include <stdio.h>
 #include <stdlib.h>
 

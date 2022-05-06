@@ -1,7 +1,8 @@
 /* Bad random number generator */
-/* 0 ~ 1 随机值 */
-/* A M 为素数最佳 */
-/* Seed != 0 */
+/* 产生 0 ~ 1 随机值 */
+/* x_{i+1} = Ax_{i} mod M */
+/* Seed != 0 ( 即 x_{i} )*/
+
 static unsigned long Seed = 1;
 
 #define A 48271L
