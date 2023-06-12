@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 /* 递归 */
+/* 记录 nothing */
 double Eval(int N)
 {
     int i;
@@ -22,6 +23,7 @@ double Eval(int N)
 }
 
 /* 动态规划 O(N平方) */
+/* 记录 Ci */
 double Eval(int N)
 {
     int i, j;
@@ -53,6 +55,7 @@ double Eval(int N)
 }
 
 /* 动态规划 O(N) */
+/* 记录 Ci 与 Si */
 double Eval_(int N)
 {
     int i, j;

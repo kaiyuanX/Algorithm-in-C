@@ -6,7 +6,8 @@
 
 #define MAX INT_MAX
 
-/* num排序个数 p概率 c期望 r根 */
+/* 下标从 1 开始 */
+/* num:排序个数  p:概率  c:记录期望  r:记录根 */
 void OptimalBST(int num, double *p, double **c, int **r)
 {
     int d, i, j, k, s, kmin;
@@ -15,14 +16,14 @@ void OptimalBST(int num, double *p, double **c, int **r)
     /* 主表和根表的初始化 */
     for (i = 1; i < num + 1; i++)
     {
-        c[i][i - 1] = 0;
+        c[i][i - 1] = 0; // left>right ; 开销 0 ; NULL 的情况
         c[i][i] = p[i];
         r[i][i] = i;
     }
 
     // c[num + 1][num] = 0;  ????
 
-    /* d+1 整合元素的个数 */
+    /* d+1:整合元素的个数 */
     for (d = 1; d <= num - 1; d++)
     {
         /* i 为 left , j 为 right */
@@ -32,7 +33,8 @@ void OptimalBST(int num, double *p, double **c, int **r)
 
             temp = MAX;
 
-            /* 找最优根 获取Cleft,i-1 + Ci+1,right */
+            /* 找最优根 获取 Cleft,i-1 + Ci+1,right */
+            /* 可能的根为 k ;范围 i ~ j */
             for (k = i; k <= j; k++)
             {
                 if (c[i][k - 1] + c[k + 1][j] < temp)
@@ -42,15 +44,14 @@ void OptimalBST(int num, double *p, double **c, int **r)
                 }
             }
 
-            r[i][j] = kmin; //记录最优根
-
             sum = p[i];
             for (s = i + 1; s <= j; s++)
             {
                 sum += p[s];
             }
 
-            c[i][j] = temp + sum;
+            c[i][j] = temp + sum; //记录最优期望
+            r[i][j] = kmin;       //记录最优根
         }
     }
 }
