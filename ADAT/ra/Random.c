@@ -1,7 +1,7 @@
 /* Bad random number generator */
 /* 产生 0 ~ 1 随机值 */
 /* x_{i+1} = Ax_{i} mod M */
-/* Seed != 0 ( 即 x_{i} )*/
+/* Seed != 0 ( 即 x_{0} )*/
 
 static unsigned long Seed = 1;
 

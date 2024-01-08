@@ -14,7 +14,12 @@ typedef long int TwoDimArray[MatrixCount + 1][MatrixCount + 1];
 /* M and LastChange are indexed starting at 1, instead of 0 */
 /* Note: Entries below main diagonals of M and LastChange are meaningless and uninitialized */
 
-/* C[]:矩阵信息 , N:矩阵个数 , 矩阵 M[i][j] 存储的最少乘法次数 , 矩阵 LastChange[i][j] 追踪路径 */
+/* 
+    C[] : 矩阵信息 , 
+    N : 矩阵个数 , 
+    矩阵 M[i][j] 存储的最少乘法次数 , 
+    矩阵 LastChange[i][j] 记录最后一次乘法的位置, 用于追踪路径
+*/
 /* 4 个矩阵 50*10 10*40 40*30 30*5 */
 /* int C[] = {50, 10, 40, 30, 5}; */
 /* 坐标 [0][j]&&[i][0] 没用 */
@@ -23,7 +28,7 @@ void OptMatrix(const int C[], int N, TwoDimArray M, TwoDimArray LastChange)
     int i, k, Left, Right;
     long ThisM;
 
-    /* X 到 X 默认为 0 */
+    /* 一个矩阵乘法次数为 0 */
     for (Left = 1; Left <= N; Left++)
     {
         M[Left][Left] = 0;
@@ -37,6 +42,7 @@ void OptMatrix(const int C[], int N, TwoDimArray M, TwoDimArray LastChange)
             Right = Left + k;
             M[Left][Right] = Infinity;
 
+            /* i 为最后一次乘法的位置 */
             /* 此循环后 , M[left][right] LastChange[left][right] 被成功赋值 */
             for (i = Left; i < Right; i++)
             {

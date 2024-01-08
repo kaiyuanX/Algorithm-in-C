@@ -1,11 +1,14 @@
 /* 求递推关系 */
-/* C(n) = (2 / n) * ( C(0) + C(1) + ... C(n-1)) + n */
+/*  
+    C(n) = (2 / n) * ( C(0) + C(1) + ... + C(n-1) ) + n 
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /* 递归 */
 /* 记录 nothing */
+/* 消耗巨大 */
 double Eval(int N)
 {
     int i;

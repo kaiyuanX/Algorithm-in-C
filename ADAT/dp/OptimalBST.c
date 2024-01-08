@@ -21,7 +21,7 @@ void OptimalBST(int num, double *p, double **c, int **r)
         r[i][i] = i;
     }
 
-    // c[num + 1][num] = 0;  ????
+    c[num + 1][num] = 0;  // ???? ，24.01.02 已解决，因为 c[k + 1][j] 会访问到 c[num + 1][num]
 
     /* d+1:整合元素的个数 */
     for (d = 1; d <= num - 1; d++)

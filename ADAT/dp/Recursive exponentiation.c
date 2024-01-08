@@ -1,7 +1,9 @@
 #include <stdio.h>
+
 // 递归求幂
 //
-// logN
+// O(logN)
+
 #define IsEven(N) ((N) % 2 == 0)
 
 long int Pow(long int X, unsigned int N)

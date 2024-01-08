@@ -8,7 +8,7 @@
 /* Repeat this procedure as many times as needed for desired error rate */
 
 /* 用之前建议使用一下 srand() */
-/* 为降低失败率，建议多次调用 IsPrime() */
+/* 为降低失败率，建议多次调用 IsPrime()，即是通过不同 A 的素性测试 */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,8 +21,8 @@ HugeInt RandInt(HugeInt Low, HugeInt High)
     return rand() % (High - Low + 1) + Low;
 }
 
-/* A 底数 ; i 指数 ; N 待判定数 */
-/* 1 2 3 求幂过程 , 即 A^(N-1) */
+/* A 底数 ; i 当前测试的指数，初始化为 p - 1 ; N 为笔记中的 p */
+/* 递归升幂，并且验证性质 2 */
 HugeInt Witness(HugeInt A, HugeInt i, HugeInt N)
 {
     HugeInt X, Y;

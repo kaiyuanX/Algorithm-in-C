@@ -1,8 +1,8 @@
 #include <stdio.h>
 /* 最大子序列 */
 // 1.
-//递归
-// N
+//  递归
+//  O(N)
 int MaxSubsequenceSum(const int A[], int N)
 {
     int ThisSum, MaxSum, j;
@@ -25,9 +25,9 @@ int MaxSubsequenceSum(const int A[], int N)
 }
 
 // 2.
-//基于分治
-//线性
-// N*logN
+//  基于分治
+//  线性
+//  O(N*logN)
 static int Max3(int A, int B, int C)
 {
     return A > B ? A > C ? A : C : B > C ? B
