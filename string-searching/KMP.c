@@ -8,7 +8,6 @@
 static void ComputeLPS(char *pat, int M, int *lps)
 {
     // length of the previous longest prefix suffix
-    // 即记录了前后缀的公共长度 , 也表示前缀后一位的位置序号
     int len = 0;
 
     lps[0] = 0; // lps[0] is always 0
@@ -32,12 +31,10 @@ static void ComputeLPS(char *pat, int M, int *lps)
             {
                 len = lps[len - 1];
 
-                // Also, note that we do not increment
-                // i here
+                // Also, note that we do not increment i here
             }
             else // if (len == 0)
             {
-                // 跳出与自己的匹配
                 lps[i] = 0;
                 i++;
             }
